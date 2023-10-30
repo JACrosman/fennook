@@ -1,0 +1,31 @@
+services:
+  # Fennook Service
+  user-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://user-db:5432/fennook-db
+      - SPRING_DATASOURCE_USERNAME=fennook
+      - SPRING_DATASOURCE_PASSWORD=koonnef
+    networks:
+      - fennook
+    depends_on:
+      - fennook-db
+  # Fennook Database
+  fennook-db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=fennook-db
+      - POSTGRES_USER=fennook
+      - POSTGRES_PASSWORD=koonnef
+    volumes:
+      - fennook-db-data:/var/lib/postgresql/data
+    networks:
+      - fennook
+volumes:
+  fennook-db:
+networks:
+  fennook

@@ -1,0 +1,4 @@
+rootProject.name = 'fennook'
+
+include 'fennook-common'
+include 'fennook-mono'
